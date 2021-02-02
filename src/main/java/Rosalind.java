@@ -1,6 +1,10 @@
 package main.java;
 
+import java.io.*;
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Rosalind {
     // 1. DNA 	Counting DNA Nucleotides
@@ -45,5 +49,41 @@ public class Rosalind {
         }
 
         return fib[n];
+    }
+
+    // 5. GC 	Computing GC Content
+    public static void maxGCContent(String filename) throws IOException {
+        File inputFile=new File(Objects.requireNonNull(Solution.class.getClassLoader().getResource(filename)).getFile());
+        InputStream inputStream = new FileInputStream(inputFile);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        String maxID = null;
+        double maxValue=0.0;
+        String id = null;
+        HashMap<String,String> map=new HashMap<>();
+        while ((line = reader.readLine()) != null) {
+            var matcher = Pattern.compile("(>Rosalind_\\d{4})(.*)").matcher(line);
+            if(matcher.find()){
+                id= matcher.group(1);
+                map.put(id,matcher.group(2));
+            }else{
+                map.put(id,map.getOrDefault(id,"").concat(line));
+            }
+        }
+
+        for (var v:
+             map.entrySet()) {
+            var countCG = v.getValue().chars().filter(ch -> ch=='C' || ch=='G').count();
+            var gcContent = countCG*100.0/v.getValue().length();
+            System.out.println("Id:"+id+" DNA:"+v.getValue()+ " CG:"+countCG+ " Len:"+ v.getValue().length() + " GCContent:"+gcContent);
+            if(gcContent>maxValue){
+                maxValue = gcContent;
+                maxID = v.getKey();
+            }
+        }
+
+        System.out.println(maxID);
+        DecimalFormat df = new DecimalFormat("##.######");
+        System.out.println(df.format(maxValue));
     }
 }
