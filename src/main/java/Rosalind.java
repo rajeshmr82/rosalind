@@ -86,4 +86,18 @@ public class Rosalind {
         DecimalFormat df = new DecimalFormat("##.######");
         System.out.println(df.format(maxValue));
     }
+
+    public static int computeHammingDistance(String s, String t) {
+        if(s.length()!=t.length()){
+            return -1;
+        }
+        int distance=0;
+        for (int i = 0; i < s.length(); i++) {
+            if(s.charAt(i)!=t.charAt(i)){
+                distance++;
+            }
+        }
+
+        return distance;
+    }
 }
