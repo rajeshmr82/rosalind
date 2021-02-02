@@ -87,6 +87,7 @@ public class Rosalind {
         System.out.println(df.format(maxValue));
     }
 
+    // 6. HAMM 	Counting Point Mutations
     public static int computeHammingDistance(String s, String t) {
         if(s.length()!=t.length()){
             return -1;
@@ -100,4 +101,14 @@ public class Rosalind {
 
         return distance;
     }
+
+    // 7. IPRB 	Mendel's First Law
+    public static String probabilityOfDominant(int k, int m, int n) {
+        var total = k + m + n;
+        var pM = m * 1.0 / total;
+        var pN = n * 1.0 / total;
+        DecimalFormat df = new DecimalFormat("#.#####");
+        return df.format(1 - pN * ((n - 1.0) / (total - 1.0)) - pN * (m / (total - 1.0)) - pM * ((m - 1.0) / (total - 1.0)) * 0.25);
+    }
+
 }
