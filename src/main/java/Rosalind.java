@@ -111,4 +111,86 @@ public class Rosalind {
         return df.format(1 - pN * ((n - 1.0) / (total - 1.0)) - pN * (m / (total - 1.0)) - pM * ((m - 1.0) / (total - 1.0)) * 0.25);
     }
 
+    public static String translateRNA(String mRNA) {
+        HashMap<String, String> rnaCodon = initRNACodon();
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < mRNA.length(); i=i+3) {
+            if (rnaCodon.getOrDefault(mRNA.substring(i, i + 3),"").equals("Stop")) {
+                break;
+            }
+            result.append(rnaCodon.getOrDefault(mRNA.substring(i, i + 3), ""));
+        }
+
+        return result.toString();
+    }
+
+    private static HashMap<String, String> initRNACodon() {
+        HashMap<String, String> rnaCodon = new HashMap<>();
+        rnaCodon.put("UUU","F");
+        rnaCodon.put("CUU","L");
+        rnaCodon.put("AUU","I");
+        rnaCodon.put("GUU","V");
+        rnaCodon.put("UUC","F");
+        rnaCodon.put("CUC","L");
+        rnaCodon.put("AUC","I");
+        rnaCodon.put("GUC","V");
+        rnaCodon.put("UUA","L");
+        rnaCodon.put("CUA","L");
+        rnaCodon.put("AUA","I");
+        rnaCodon.put("GUA","V");
+        rnaCodon.put("UUG","L");
+        rnaCodon.put("CUG","L");
+        rnaCodon.put("AUG","M");
+        rnaCodon.put("GUG","V");
+        rnaCodon.put("UCU","S");
+        rnaCodon.put("CCU","P");
+        rnaCodon.put("ACU","T");
+        rnaCodon.put("GCU","A");
+        rnaCodon.put("UCC","S");
+        rnaCodon.put("CCC","P");
+        rnaCodon.put("ACC","T");
+        rnaCodon.put("GCC","A");
+        rnaCodon.put("UCA","S");
+        rnaCodon.put("CCA","P");
+        rnaCodon.put("ACA","T");
+        rnaCodon.put("GCA","A");
+        rnaCodon.put("UCG","S");
+        rnaCodon.put("CCG","P");
+        rnaCodon.put("ACG","T");
+        rnaCodon.put("GCG","A");
+        rnaCodon.put("UAU","Y");
+        rnaCodon.put("CAU","H");
+        rnaCodon.put("AAU","N");
+        rnaCodon.put("GAU","D");
+        rnaCodon.put("UAC","Y");
+        rnaCodon.put("CAC","H");
+        rnaCodon.put("AAC","N");
+        rnaCodon.put("GAC","D");
+        rnaCodon.put("CAA","Q");
+        rnaCodon.put("AAA","K");
+        rnaCodon.put("GAA","E");
+        rnaCodon.put("CAG","Q");
+        rnaCodon.put("AAG","K");
+        rnaCodon.put("GAG","E");
+        rnaCodon.put("UGU","C");
+        rnaCodon.put("CGU","R");
+        rnaCodon.put("AGU","S");
+        rnaCodon.put("GGU","G");
+        rnaCodon.put("UGC","C");
+        rnaCodon.put("CGC","R");
+        rnaCodon.put("AGC","S");
+        rnaCodon.put("GGC","G");
+        rnaCodon.put("CGA","R");
+        rnaCodon.put("AGA","R");
+        rnaCodon.put("GGA","G");
+        rnaCodon.put("UGG","W");
+        rnaCodon.put("CGG","R");
+        rnaCodon.put("AGG","R");
+        rnaCodon.put("GGG","G");
+        rnaCodon.put("UAA","Stop");
+        rnaCodon.put("UAG","Stop");
+        rnaCodon.put("UGA","Stop");
+        return rnaCodon;
+    }
 }
