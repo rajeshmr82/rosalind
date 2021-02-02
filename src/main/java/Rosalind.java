@@ -2,9 +2,12 @@ package main.java;
 
 import java.io.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Rosalind {
     // 1. DNA 	Counting DNA Nucleotides
@@ -111,6 +114,7 @@ public class Rosalind {
         return df.format(1 - pN * ((n - 1.0) / (total - 1.0)) - pN * (m / (total - 1.0)) - pM * ((m - 1.0) / (total - 1.0)) * 0.25);
     }
 
+    // 8. PROT 	Translating RNA into Protein
     public static String translateRNA(String mRNA) {
         HashMap<String, String> rnaCodon = initRNACodon();
 
@@ -192,5 +196,24 @@ public class Rosalind {
         rnaCodon.put("UAG","Stop");
         rnaCodon.put("UGA","Stop");
         return rnaCodon;
+    }
+
+    // 9. SUBS 	Finding a Motif in DNA
+    public static String findAMotif(String s, String t) {
+        if(t.length()>s.length()){
+            return "0";
+        }
+
+        List<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < s.length()-t.length(); i++) {
+            if(s.startsWith(t, i)){
+                indices.add(i+1);
+            }
+        }
+
+        return indices
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(" "));
     }
 }
