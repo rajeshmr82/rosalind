@@ -307,4 +307,19 @@ public class Rosalind {
         return "";
     }
 
+    // 13. IEV 	Calculating Expected Offspring
+    public static void calculateExpectedOffspring(String s) {
+        /* 1. AA-AA, 2. AA-Aa, 3. AA-aa, 4. Aa-Aa, 5. Aa-aa, 6. aa-aa */
+        var input = Arrays.stream(s.split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        System.out.println(
+                2 * (
+                          input[0] // AA-AA - Pr = 1
+                        + input[1] //  AA-Aa - Pr = 1
+                        + input[2] //  AA-aa - Pr = 1
+                        + input[3] * 0.75 // Aa-Aa - Pr = 0.75
+                        + input[4] * 0.5 //  Aa-aa - Pr = 0.5
+                )
+        );
+    }
 }
