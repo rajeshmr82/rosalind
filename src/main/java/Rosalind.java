@@ -1,6 +1,7 @@
 package main.java;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -214,7 +215,7 @@ public class Rosalind {
                 .collect(Collectors.joining(" "));
     }
 
-    // 10. FIBD 	Mortal Fibonacci Rabbits
+    // 10. CONS 	Consensus and Profile
     public static void getConsensusString(String filename) throws IOException {
         File inputFile = new File(Objects.requireNonNull(Solution.class.getClassLoader().getResource(filename)).getFile());
         InputStream inputStream = new FileInputStream(inputFile);
@@ -276,4 +277,22 @@ public class Rosalind {
         }
     }
 
+    // 11. FIBD 	Mortal Fibonacci Rabbits
+    public static String mortalRabbits(int n, int m) {
+        var rabbits = new BigInteger[n];
+        rabbits[0] = new BigInteger("1");
+        rabbits[1] =new BigInteger("1");
+        for (int i = 2; i < n; i++) {
+            BigInteger bunnies = rabbits[i - 2].add(rabbits[i - 1]);
+            if(i<m){
+               rabbits[i] = bunnies;
+            }else if(i==m || i==m+1){
+                rabbits[i] = bunnies.subtract(new BigInteger("1"));
+            }else{
+                rabbits[i] = bunnies.subtract(rabbits[i-(m+1)]);
+            }
+        }
+        System.out.println(Arrays.toString(rabbits));
+        return rabbits[n-1].toString();
+    }
 }
