@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.biostronghold.Rosalind;
+
 import java.io.IOException;
 
 public class Solution {
@@ -34,7 +36,10 @@ public class Solution {
         // Rosalind.getConsensusString("10_simple.txt");
         // Rosalind.getConsensusString("10.txt");
         // 11. FIBD 	Mortal Fibonacci Rabbits
-        System.out.println(Rosalind.mortalRabbits(6,3));
-        System.out.println(Rosalind.mortalRabbits(83,16));
+        // System.out.println(Rosalind.mortalRabbits(6,3));
+        // System.out.println(Rosalind.mortalRabbits(83,16));
+        // 12. GRPH 	Overlap Graphs
+        System.out.println(Rosalind.overlapGraph("12_simple.txt"));
+        System.out.println(Rosalind.overlapGraph("12.txt"));
     }
 }

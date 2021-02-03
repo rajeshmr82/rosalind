@@ -1,4 +1,6 @@
-package main.java;
+package main.java.biostronghold;
+
+import main.java.Utility;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -53,31 +55,29 @@ public class Rosalind {
     }
 
     // 5. GC 	Computing GC Content
-    public static void maxGCContent(String filename) throws IOException {
-        File inputFile=new File(Objects.requireNonNull(Solution.class.getClassLoader().getResource(filename)).getFile());
-        InputStream inputStream = new FileInputStream(inputFile);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
+    public static void maxGCContent(String filename) {
+        var input = Utility.getInput(filename);
         String maxID = null;
-        double maxValue=0.0;
+        double maxValue = 0.0;
         String id = null;
-        HashMap<String,String> map=new HashMap<>();
-        while ((line = reader.readLine()) != null) {
+        HashMap<String, String> map = new HashMap<>();
+        for (var line :
+                input) {
             var matcher = Pattern.compile("(>Rosalind_\\d{4})(.*)").matcher(line);
-            if(matcher.find()){
-                id= matcher.group(1);
-                map.put(id,matcher.group(2));
-            }else{
-                map.put(id,map.getOrDefault(id,"").concat(line));
+            if (matcher.find()) {
+                id = matcher.group(1);
+                map.put(id, matcher.group(2));
+            } else {
+                map.put(id, map.getOrDefault(id, "").concat(line));
             }
         }
 
-        for (var v:
-             map.entrySet()) {
-            var countCG = v.getValue().chars().filter(ch -> ch=='C' || ch=='G').count();
-            var gcContent = countCG*100.0/v.getValue().length();
-            System.out.println("Id:"+id+" DNA:"+v.getValue()+ " CG:"+countCG+ " Len:"+ v.getValue().length() + " GCContent:"+gcContent);
-            if(gcContent>maxValue){
+        for (var v :
+                map.entrySet()) {
+            var countCG = v.getValue().chars().filter(ch -> ch == 'C' || ch == 'G').count();
+            var gcContent = countCG * 100.0 / v.getValue().length();
+            System.out.println("Id:" + id + " DNA:" + v.getValue() + " CG:" + countCG + " Len:" + v.getValue().length() + " GCContent:" + gcContent);
+            if (gcContent > maxValue) {
                 maxValue = gcContent;
                 maxID = v.getKey();
             }
@@ -217,23 +217,8 @@ public class Rosalind {
 
     // 10. CONS 	Consensus and Profile
     public static void getConsensusString(String filename) throws IOException {
-        File inputFile = new File(Objects.requireNonNull(Solution.class.getClassLoader().getResource(filename)).getFile());
-        InputStream inputStream = new FileInputStream(inputFile);
+        HashMap<String, String> map = Utility.readFASTAInput(filename);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        String id = null;
-        HashMap<String, String> map = new HashMap<>();
-
-        while ((line = reader.readLine()) != null) {
-            var matcher = Pattern.compile("(>Rosalind_\\d+)").matcher(line);
-            if (matcher.find()) {
-                id = matcher.group(0);
-                map.put(id, "");
-            } else {
-                map.put(id, map.get(id).concat(line));
-            }
-        }
         int strLen = 0;
         for (var s:
              map.entrySet()) {
@@ -295,4 +280,31 @@ public class Rosalind {
         System.out.println(Arrays.toString(rabbits));
         return rabbits[n-1].toString();
     }
+
+    // 12. GRPH 	Overlap Graphs
+    public static String overlapGraph(String filename) {
+        HashMap<String, String> nodes = Utility.readFASTAInput(filename);
+        System.out.println(nodes);
+        List<String[]> edges = new ArrayList<>();
+        for (var n1:
+             nodes.entrySet()) {
+            for (var n2 :
+                    nodes.entrySet()) {
+                if (n1 == n2) continue;
+
+                var dna1 = n1.getValue();
+                var dna2 = n2.getValue();
+
+                if (dna2.substring(dna2.length() - 3).equals(dna1.substring(0,3))) {
+                    edges.add(new String[]{n2.getKey(), n1.getKey()});
+                }
+            }
+        }
+        for (var e:
+             edges) {
+            System.out.printf("%s %s%n",e[0],e[1]);
+        }
+        return "";
+    }
+
 }
