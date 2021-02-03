@@ -2,10 +2,7 @@ package main.java;
 
 import java.io.*;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -216,4 +213,67 @@ public class Rosalind {
                 .map(String::valueOf)
                 .collect(Collectors.joining(" "));
     }
+
+    // 10. FIBD 	Mortal Fibonacci Rabbits
+    public static void getConsensusString(String filename) throws IOException {
+        File inputFile = new File(Objects.requireNonNull(Solution.class.getClassLoader().getResource(filename)).getFile());
+        InputStream inputStream = new FileInputStream(inputFile);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        String id = null;
+        HashMap<String, String> map = new HashMap<>();
+
+        while ((line = reader.readLine()) != null) {
+            var matcher = Pattern.compile("(>Rosalind_\\d+)").matcher(line);
+            if (matcher.find()) {
+                id = matcher.group(0);
+                map.put(id, "");
+            } else {
+                map.put(id, map.get(id).concat(line));
+            }
+        }
+        int strLen = 0;
+        for (var s:
+             map.entrySet()) {
+            strLen = s.getValue().length();
+        }
+        char[] symbols = new char[]{'A','C','G','T'};
+
+        HashMap<Character, Integer[]> profileMatrix = new HashMap<>();
+        for (var c:
+             symbols) {
+            profileMatrix.put(c, new Integer[strLen]);
+            Arrays.fill(profileMatrix.get(c), 0);
+        }
+
+        for (var s :
+                map.entrySet()) {
+            var dna = s.getValue();
+            for (int i = 0; i < strLen; i++) {
+                profileMatrix.get(dna.charAt(i))[i]++;
+            }
+        }
+        char[] result = new char[strLen];
+
+
+        for (int i = 0; i < strLen; i++) {
+            int max=0;
+            for (var c :
+                    symbols) {
+                if (profileMatrix.get(c)[i] > max) {
+                    max = profileMatrix.get(c)[i];
+                    result[i] = c;
+                }
+            }
+        }
+        System.out.println(new String(result));
+        for (var symbol:
+             symbols) {
+            System.out.println(symbol +": " + Arrays.stream(profileMatrix.get(symbol))
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(" ")));
+        }
+    }
+
 }
