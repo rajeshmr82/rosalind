@@ -25,7 +25,9 @@ public class Utility {
         List<String> data = new ArrayList<>();
         String line;
         try {
-            while ((line = reader.readLine()) != null){
+            while (true){
+                assert reader != null;
+                if ((line = reader.readLine()) == null) break;
                 data.add(line);
             }
         }catch (Exception e){
@@ -45,13 +47,15 @@ public class Utility {
         String line;
         try {
             String id = null;
-            while ((line = reader.readLine()) != null){
-                var matcher = Pattern.compile(">(Rosalind_\\d+)").matcher(line);
-                if (matcher.find()) {
-                    id = matcher.group(1);
-                    data.put(id, "");
-                } else {
-                    data.put(id, data.get(id).concat(line));
+            if (reader != null) {
+                while ((line = reader.readLine()) != null){
+                    var matcher = Pattern.compile(">(Rosalind_\\d+)").matcher(line);
+                    if (matcher.find()) {
+                        id = matcher.group(1);
+                        data.put(id, "");
+                    } else {
+                        data.put(id, data.get(id).concat(line));
+                    }
                 }
             }
         }catch (Exception e){

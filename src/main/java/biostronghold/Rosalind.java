@@ -322,4 +322,24 @@ public class Rosalind {
                 )
         );
     }
+
+    // 14. LCSM 	Finding a Shared Motif
+    public static void findLargestCommonSubString(String filename) {
+        HashMap<String, String> input = Utility.readFASTAInput(filename);
+        var dnaStrings = new ArrayList<>(input.values());
+
+        var substr="";
+        var first = dnaStrings.get(0);
+        for (int i = 0; i < first.length(); i++) {
+            for (int j = 0; j <first.length()-i+1; j++) {
+                String currSubStr = first.substring(i, i + j);
+                if(j>substr.length() && dnaStrings.stream().allMatch(d -> d.contains(currSubStr))){
+                    substr = currSubStr;
+                }
+            }
+        }
+
+        System.out.println(substr);
+    }
+
 }

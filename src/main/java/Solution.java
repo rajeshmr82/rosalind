@@ -40,7 +40,10 @@ public class Solution {
         // System.out.println(Rosalind.overlapGraph("12_simple.txt"));
         // System.out.println(Rosalind.overlapGraph("12.txt"));
         // 13. IEV 	Calculating Expected Offspring
-        Rosalind.calculateExpectedOffspring("1 0 0 1 0 1");
-        Rosalind.calculateExpectedOffspring("18960 17972 16529 17477 19039 19698");
+        // Rosalind.calculateExpectedOffspring("1 0 0 1 0 1");
+        // Rosalind.calculateExpectedOffspring("18960 17972 16529 17477 19039 19698");
+        // 14. LCSM 	Finding a Shared Motif
+        Rosalind.findLargestCommonSubString("14_simple.txt");
+        Rosalind.findLargestCommonSubString("14.txt");
     }
 }
