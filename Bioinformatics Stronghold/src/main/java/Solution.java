@@ -43,7 +43,9 @@ public class Solution {
         // Rosalind.calculateExpectedOffspring("1 0 0 1 0 1");
         // Rosalind.calculateExpectedOffspring("18960 17972 16529 17477 19039 19698");
         // 14. LCSM 	Finding a Shared Motif
-        Rosalind.findLargestCommonSubString("14_simple.txt");
-        Rosalind.findLargestCommonSubString("14.txt");
+        // Rosalind.findLargestCommonSubString("14_simple.txt");
+        // Rosalind.findLargestCommonSubString("14.txt");
+        // 15. LIA 	Independent Alleles
+        Rosalind.independentAlleles(2,1);
     }
 }

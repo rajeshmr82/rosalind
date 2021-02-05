@@ -342,4 +342,11 @@ public class Rosalind {
         System.out.println(substr);
     }
 
+    // 15. LIA 	Independent Alleles
+    public static void independentAlleles(int k, int N) {
+        System.out.printf("%d-%d%n",k,N);
+        for (int i = 0; i < k; i++) {
+
+        }
+    }
 }
